@@ -1,0 +1,80 @@
+body {
+    background-color: #497ac4; /* Subtle light grey with blue undertone */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #121212;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    grid-column: 1 / span 2; /* Make header span both columns if using grid on body */
+}
+
+/* Image styling */
+img {
+    margin-left: 10px;
+    height: 100px; /* Adjust height as needed */
+    margin-right: 20px; /* Space between image and heading */
+}
+
+.output {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 3px solid #0f0f0f; /* Red accent like many news sites */
+    color: #333333;
+}
+
+.output:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Category indicator at the top */
+.output::before {
+    content: 'NEWS';
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: #e53e3e;
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Text color adjustments */
+.output h2 {
+    color: #121212;
+    font-weight: bold;
+}
+
+.output h3 {
+    color: #e53e3e; /* News source in red */
+    font-weight: bold;
+}
+
+.output .date, .output .author {
+    color: #718096;
+}
+
+.output p {
+    color: #4a5568;
+}
+
+
