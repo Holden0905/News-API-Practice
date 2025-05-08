@@ -1,42 +1,63 @@
-const apiKey = 'eb590d41b6294a19b5e96059cd37186e';
+var requestOptions = {
+    method: 'GET'
+};
 
-fetch(`https://newsapi.org/v2/everything?q=stockmarket&apiKey=${apiKey}`)
-    .then(response => response.json())
-    .then (data =>{
-        console.log(data)
+var params = {
+    api_token: '3pQnnnzaPfOv4uaooDwPXVO9vfW233teGkBeU2eT',
+    categories: 'business, tech',
+    search: 'NYSE, Nasdaq, SPY,',
+    limit: '50'
+};
+
+var esc = encodeURIComponent;
+var query = Object.keys(params)
+    .map(function(k) {return esc(k) + '=' + esc(params[k]);})
+    .join('&');
+
+
+
+fetch("https://api.thenewsapi.com/v1/news/all?" + query, requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    
+    // Make sure data.data exists and has articles
+    if (data.data && data.data.length > 0) {
+      // Display first article
+      if (data.data[0]) {
         document.getElementById('article1').innerHTML = `
-            <h2>${data.articles[0].title}</h2>
-            <h2>${data.articles[0].source.name}</h2>
-            <p>${data.articles[0].publishedAt}</p>
-            <p>${data.articles[0].author}</p>
-            <p>${data.articles[0].description}</p>
-            
+          <h2>${data.data[0].title}</h2>
+          <h2>${data.data[0].source}</h2>
+          <p>${data.data[0].published_at}</p>
+          <p>${data.data[0].description || data.data[0].snippet}</p>
         `;
+      }
+      
+      // Display second article
+      if (data.data[1] && document.getElementById('article2')) {
         document.getElementById('article2').innerHTML = `
-            <h2>${data.articles[1].title}</h2>
-            <h2>${data.articles[1].source.name}</h2>
-            <p>${data.articles[1].publishedAt}</p>
-            <p>${data.articles[1].author}</p>
-            <p>${data.articles[1].description}</p>
-            
+          <h2>${data.data[1].title}</h2>
+          <h2>${data.data[1].source}</h2>
+          <p>${data.data[1].published_at}</p>
+          <p>${data.data[1].description || data.data[1].snippet}</p>
         `;
+      }
+      
+      // Display third article
+      if (data.data[2] && document.getElementById('article3')) {
         document.getElementById('article3').innerHTML = `
-            <h2>${data.articles[2].title}</h2>
-            <h2>${data.articles[2].source.name}</h2>
-            <p>${data.articles[2].publishedAt}</p>
-            <p>${data.articles[2].author}</p>
-            <p>${data.articles[2].description}</p>
-            
+          <h2>${data.data[2].title}</h2>
+          <h2>${data.data[2].source}</h2>
+          <p>${data.data[2].published_at}</p>
+          <p>${data.data[2].description || data.data[2].snippet}</p>
         `;
-        document.getElementById('article4').innerHTML = `
-            <h2>${data.articles[4].title}</h2>
-            <h2>${data.articles[4].source.name}</h2>
-            <p>${data.articles[4].publishedAt}</p>
-            <p>${data.articles[4].author}</p>
-            <p>${data.articles[4].description}</p>
-            
-        `;
-    })
+      }
+      
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
 
     // <img src="${data.Poster}" alt="${data.Title} Poster" style="max-width: 300px;">
